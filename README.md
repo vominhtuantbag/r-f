@@ -34,3 +34,18 @@ npx supabase start
 npx supabase db reset
 npm run rider
 ```
+
+## Vercel (Expo Web — monorepo)
+
+For each Expo app project (`apps/rider`, `apps/driver`, `apps/partner`):
+
+| Setting | Value |
+|---|---|
+| **Root Directory** | `apps/rider` (or `apps/driver` / `apps/partner`) |
+| **Include files outside Root Directory** | **Yes** (required for `packages/*`) |
+| **Install Command** | `cd ../.. && npm ci` |
+| **Build Command** | `npx expo export --platform web` |
+| **Output Directory** | `dist` |
+| **Framework Preset** | Other |
+
+`apps/*/vercel.json` already encodes install/build/output. `query-string` is a direct app dependency so Metro web export resolves under npm workspace hoisting.
