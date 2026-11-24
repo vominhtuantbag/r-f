@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { getEnv } from '@ridefood/config';
+import { ErrorBoundary } from '../src/components/ErrorBoundary';
 import { AppProviders, useAuth, useTheme } from '../src/providers/AppProviders';
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
@@ -64,9 +65,11 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <AppProviders>
-          <RootNavigator />
-        </AppProviders>
+        <ErrorBoundary>
+          <AppProviders>
+            <RootNavigator />
+          </AppProviders>
+        </ErrorBoundary>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

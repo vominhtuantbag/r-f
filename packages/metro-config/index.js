@@ -3,8 +3,8 @@ const { getDefaultConfig } = require('expo/metro-config');
 
 /**
  * Shared Expo Metro config for npm workspaces monorepo.
- * Ensures hoisted transitive deps (e.g. query-string) resolve on Vercel
- * when Root Directory is apps/<app>.
+ * Ensures hoisted transitive deps resolve on Vercel and keeps Expo web
+ * module class names so `registerWebModule` works in production minify.
  */
 function createWorkspaceMetroConfig(projectRoot) {
   const workspaceRoot = path.resolve(projectRoot, '../..');
@@ -15,7 +15,6 @@ function createWorkspaceMetroConfig(projectRoot) {
     path.resolve(projectRoot, 'node_modules'),
     path.resolve(workspaceRoot, 'node_modules'),
   ];
-  // Prefer hierarchical lookup so nested requires resolve through parent node_modules.
   config.resolver.disableHierarchicalLookup = false;
 
   const resolvePackage = (name) => {
@@ -38,12 +37,28 @@ function createWorkspaceMetroConfig(projectRoot) {
     '@ridefood/supabase': path.resolve(workspaceRoot, 'packages/supabase'),
     '@ridefood/utils': path.resolve(workspaceRoot, 'packages/utils'),
     '@ridefood/ui': path.resolve(workspaceRoot, 'packages/ui'),
-    // Explicit pins for Metro web export on Vercel (hoisting gaps)
     'query-string': resolvePackage('query-string'),
     'decode-uri-component': resolvePackage('decode-uri-component'),
     'filter-obj': resolvePackage('filter-obj'),
     'split-on-first': resolvePackage('split-on-first'),
     'strict-uri-encode': resolvePackage('strict-uri-encode'),
+  };
+
+  // Critical for Expo Web production (`expo export`):
+  // expo-modules-core registerWebModule uses `implementation.name`.
+  // Terser/metro minify otherwise strips class names → blank white screen.
+  config.transformer = {
+    ...config.transformer,
+    minifierConfig: {
+      ...(config.transformer?.minifierConfig || {}),
+      keep_classnames: true,
+      keep_fnames: true,
+      mangle: {
+        ...(config.transformer?.minifierConfig?.mangle || {}),
+        keep_classnames: true,
+        keep_fnames: true,
+      },
+    },
   };
 
   return config;

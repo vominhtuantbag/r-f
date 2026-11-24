@@ -146,9 +146,12 @@ export function detectMockMode(options?: {
 
   if (flag === 'false') {
     if (!configured) {
-      throw new Error(
-        '[@ridefood/config] EXPO_PUBLIC_MOCK_MODE=false but EXPO_PUBLIC_SUPABASE_URL / EXPO_PUBLIC_SUPABASE_ANON_KEY (or sb_publishable_…) are missing or invalid. Set real credentials or set MOCK_MODE=true.',
+      // Never hard-crash the web bundle (blank Vercel screen). Soft-fall to mock
+      // and surface a clear console error for operators.
+      console.error(
+        '[@ridefood/config] EXPO_PUBLIC_MOCK_MODE=false but Supabase URL/anon key are missing or invalid on this build. Falling back to MOCK mode. Set EXPO_PUBLIC_SUPABASE_URL + EXPO_PUBLIC_SUPABASE_ANON_KEY (sb_publishable_… or eyJ…) in Vercel env, or set MOCK_MODE=true.',
       );
+      return true;
     }
     return false;
   }
