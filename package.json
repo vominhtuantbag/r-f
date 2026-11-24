@@ -1,0 +1,36 @@
+{
+  "name": "ride-food",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ride & Food — Expo (Web/Android/iOS) + Supabase + Vercel (100% TypeScript)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "dev:rider": "npm run web --workspace=@ridefood/rider",
+    "dev:driver": "npm run web --workspace=@ridefood/driver",
+    "dev:partner": "npm run web --workspace=@ridefood/partner",
+    "rider": "npm run start --workspace=@ridefood/rider",
+    "driver": "npm run start --workspace=@ridefood/driver",
+    "partner": "npm run start --workspace=@ridefood/partner",
+    "rider:web": "npm run web --workspace=@ridefood/rider",
+    "driver:web": "npm run web --workspace=@ridefood/driver",
+    "partner:web": "npm run web --workspace=@ridefood/partner",
+    "admin": "npm run start --workspace=@ridefood/admin",
+    "landing": "npm run start --workspace=@ridefood/landing",
+    "supabase:start": "npx supabase start",
+    "supabase:reset": "npx supabase db reset",
+    "supabase:types": "npx supabase gen types typescript --local > packages/supabase/src/database.types.ts",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "npm@10.9.0",
+  "dependencies": {
+    "query-string": "^7.1.3"
+  }
+}

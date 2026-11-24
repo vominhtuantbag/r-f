@@ -1,0 +1,18 @@
+﻿{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "moduleResolution": "bundler",
+    "paths": {
+      "@ridefood/types": ["./../types/src"],
+      "@ridefood/types/*": ["./../types/src/*"],
+      "@ridefood/config": ["./../config/src"],
+      "@ridefood/config/*": ["./../config/src/*"],
+      "@ridefood/supabase": ["./../supabase/src"],
+      "@ridefood/supabase/*": ["./../supabase/src/*"],
+      "@ridefood/utils": ["./../utils/src"],
+      "@ridefood/utils/*": ["./../utils/src/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

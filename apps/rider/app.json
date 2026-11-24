@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "GOXE",
+    "slug": "ride-food-rider",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "ridefood-rider",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#24B8C4"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.ridefood.rider",
+      "config": {
+        "googleMapsApiKey": "${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}"
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Ride & Food needs your location to book rides and deliver food.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Ride & Food uses your location for live trip tracking."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#24B8C4"
+      },
+      "package": "app.ridefood.rider",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "POST_NOTIFICATIONS"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "${EXPO_PUBLIC_GOOGLE_MAPS_API_KEY}"
+        }
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-localization"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "appVariant": "rider",
+      "router": {
+        "origin": false
+      }
+    }
+  }
+}

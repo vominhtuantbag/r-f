@@ -1,0 +1,34 @@
+{
+  "name": "@ridefood/supabase",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./realtime": "./src/realtime.ts",
+    "./rpc": "./src/rpc.ts",
+    "./mock": "./src/mock/index.ts",
+    "./auth": "./src/auth/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@ridefood/config": "*",
+    "@ridefood/types": "*",
+    "@supabase/supabase-js": "^2.49.1"
+  },
+  "peerDependencies": {
+    "@react-native-async-storage/async-storage": "*",
+    "expo-secure-store": "*"
+  },
+  "peerDependenciesMeta": {
+    "@react-native-async-storage/async-storage": { "optional": true },
+    "expo-secure-store": { "optional": true }
+  },
+  "devDependencies": {
+    "typescript": "~5.6.3"
+  }
+}
